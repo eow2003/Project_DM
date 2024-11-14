@@ -1,17 +1,23 @@
 package cmd;
 
 import util.Converter;
+import java.io.IOException;  // Import IOException
 
 public class OriginalCsv2ArffCommand implements Command {
-	public final static String ORIGINAL_CSV_DATASET = "data/auto-mpg.csv";
-
-	public final static String ORIGINAL_ARFF_DATASET = "data/auto-mpg.arff";
+	// Paths for input and output files
+	public final static String ORIGINAL_CSV_DATASET = "data/auto-mpg.csv";  // Input CSV path
+	public final static String ORIGINAL_ARFF_DATASET = "data/auto-mpg.arff";  // Output ARFF path
 
 	public void exec() {
-		Converter.csv2Arff(ORIGINAL_CSV_DATASET, ORIGINAL_ARFF_DATASET);
+		try {
+			Converter.csv2Arff(ORIGINAL_CSV_DATASET, ORIGINAL_ARFF_DATASET);
+		} catch (IOException e) {
+			System.err.println("Error converting CSV to ARFF: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		Command cmd = new OriginalCsv2ArffCommand();
 		cmd.exec();
 	}
